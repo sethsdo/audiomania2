@@ -24,7 +24,7 @@ import { Authenticated } from '../authenticate/authenticate';
 import styles from './login.css'
 import { SIGNING_IN_SUCCESS, SIGNING_IN_ERROR } from '../../state/actions/types';
 
-//import {history} from '../../helper/history'
+import {history} from '../../helper/history'
 
 
 
@@ -97,8 +97,9 @@ const mapDispatch = (dispatch, props) => {
                 .then(data => {
                     console.log(data, "here")
                     dispatch({ type: SIGNING_IN_SUCCESS, payload: data})
-                    props.history.push('/')
-                    //console.log(history)
+                    return window.location.href = "/home"
+                    
+                    console.log(history)
                 })
                 .catch(err => {
                     console.log(err)

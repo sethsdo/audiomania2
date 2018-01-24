@@ -7,6 +7,8 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Login from '../login/login';
 import Register from '../register/register';
 import styles from './landing.css'
+import { history } from '../../helper/history'
+import { connect } from 'react-redux';
 
 const lgButton1 = () => {
     return <FlatButton fullWidth={true} label="Login" onClick={this.handleLoginClick} />
@@ -17,9 +19,6 @@ const lgButton2 = () => {
 
 
 class Landing extends Component {
-    // componentDidMount() {
-    //     attemptAuthentication();
-    // }
     constructor(props) {
         super(props);
         this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -34,10 +33,22 @@ class Landing extends Component {
         this.setState({switched: true})
         //return window.location.href = '/signup';
     }
+
+    // componentWillMount() {
+    //     console.log(this.props.isAuthenticated, history.location.pathname, 'from component will mount');
+    //     if (this.props.isAuthenticated) {
+    //         console.log('props is authenticated');
+    //         if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
+    //             console.log("Made it past")
+    //             return history.go('/home');
+    //         }
+    //         return
+    //     }
+    // }
     render() {
         let logged = null
         let button = null
-        console.log(this.state.switched, "auth button switch")
+        //console.log(this.state.switched, "auth button switch")
         if (!this.state.switched){
             logged = <Login/>
             button = <FlatButton fullWidth={true} label="Don't have an Account? Register!" onClick={this.handleRegisterClick} />
@@ -63,4 +74,4 @@ class Landing extends Component {
     }
 }
 
-export default Landing;
+export default connect(null)(Landing);

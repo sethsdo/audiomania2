@@ -10,7 +10,7 @@ import './App.css';
 import { attemptAuth } from './state/actions/authActions';
 import { PrivateRoute } from './components/authenticate/authenticate';
 import { SIGNING_IN_ERROR, SIGNING_IN_SUCCESS } from "./state/actions/types"
-//import { history } from './helper/history'
+import { history } from './helper/history'
 
 
 class App extends Component {
@@ -20,18 +20,18 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props, 'from component will mount');
+    console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
     if (this.props.isAuthenticated) {
       console.log('props is authenticated');
-      if (this.props.match.path === '/') {
-        return this.props.history.push('/home');
+      if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
+        console.log("Made it past")
+        return history.go('/home');
       }
       return
     }
     this.props.attemptAuthentication()
       .then(_ => { })
-      .catch(_ => this.props.history.replace('/'));
-
+      .catch(_ => this.props.history.replace('/Auth'));
   }
   
 
@@ -39,15 +39,15 @@ class App extends Component {
     console.log(this.props.isAuthenticated, "main check")
     return (
       <div className="App">
-        <Router>
+        <Router history={history}>
           <div>
-            <Header isAuthenticated={this.props.isAuthenticated}/>
+            {/* <Header isAuthenticated={this.props.isAuthenticated}/> */}
             <Switch>
 
               <Route exact path="/" render={() => (
                 console.log(this.props.isAuthenticated, "second check"),
                 this.props.isAuthenticated ?
-                  <Redirect to="/dashboard" /> : <Redirect to="/Auth" />
+                  <Redirect to="/home" /> : <Redirect to="/Auth" />
               )} />
               <Route path="/Auth" component={Landing} />
               <PrivateRoute path="/home" isAuthenticated={this.props.isAuthenticated} component={Dashboard} />
@@ -60,7 +60,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.authenticationReducer.user)
+  console.log(state.authenticationReducer.user, state.authenticationReducer.isAuthenticated)
   return {
     user: state.authenticationReducer.user,
     isAuthenticated: state.authenticationReducer.isAuthenticated
@@ -77,10 +77,12 @@ const mapDispatchToProps = (dispatch, props) => {
             if (data.data) {
               console.log("passed if");
               dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
+              return history.push("/home")
               resolve();
             }
             console.log(data, "error");
-            // dispatch({ type: SIGNING_IN_ERROR })
+            history.push('/')
+            dispatch({ type: SIGNING_IN_ERROR })
             //reject();
           })
           .catch(err => {
