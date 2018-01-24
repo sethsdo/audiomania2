@@ -1,0 +1,28 @@
+html, body, pageView{
+    background-color: #2c345f
+;
+    max-height: 100%;
+    margin: 0;
+   padding: 0;
+}
+
+.lg-head {
+    width: 100%;
+    display: inline-flex;
+}
+.lg-div {
+    width: 50%;
+}
+.lg-outer-container {
+    max-width: 500px;
+    background: white;
+    margin: auto;
+    margin-top: 7.0em;
+    justify-content: center;
+    text-align: center;
+}
+.lg-container {
+    padding: 0%;
+    max-height: 100%;
+
+}

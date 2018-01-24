@@ -1,0 +1,9 @@
+
+
+export const SIGNING_IN = "SIGN_IN_PENDING";
+export const SIGNING_IN_SUCCESS = "SIGN_IN_SUCCESS";
+export const SIGNING_IN_ERROR = "SIGNING_IN_ERROR";
+export const SIGNING_OUT = "SIGNING_OUT";
+export const SIGNING_OUT_SUCCESS = "SIGNING_OUT_SUCCESS";
+export const SIGNING_OUT_ERROR = "SIGNING_OUT_ERROR";
+export const LOGOUT = "LOGOUT";
