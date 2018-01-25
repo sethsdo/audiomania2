@@ -48,26 +48,20 @@ class Landing extends Component {
     render() {
         let logged = null
         let button = null
-        //console.log(this.state.switched, "auth button switch")
         if (!this.state.switched){
             logged = <Login/>
             button = <FlatButton fullWidth={true} label="Don't have an Account? Register!" onClick={this.handleRegisterClick} />
-
         } else {
             logged = <Register/>
             button = <FlatButton fullWidth={true} label="Already Registerd? Sign In!" onClick={this.handleLoginClick} />
         }
-
         return (
-
             <Card className="lg-outer-container">
                 <div className="lg-container">
-
                     {logged}  
                     <br/>
                     {button}
                 </div>
- 
                 <br />
             </Card>
         )

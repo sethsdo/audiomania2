@@ -28,18 +28,18 @@ const Menu = (props) => (
     </IconMenu>
 );
 
-class Header extends React.Component {
-    render() {
+export const Header = (props) => {
+    console.log(props.data.firstname)
+    let name = `${props.data.firstname + ' ' + props.data.lastname}`
         return (
             <div className={styles.container}>
                 <AppBar
-                    title="Title"
+                    title={"Welcome" + name }
                     iconClassNameLeft={true}
                     iconElementRight={<Menu />}
                 />
             </div>
         )
-    }
 }
 // const handleSignout = (dispatch, props) => {
 //     console.log("in sign out")

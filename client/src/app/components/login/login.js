@@ -97,6 +97,7 @@ const mapDispatch = (dispatch, props) => {
                 .then(data => {
                     console.log(data, "here")
                     dispatch({ type: SIGNING_IN_SUCCESS, payload: data})
+                    //history.push("/", {state: data})
                     return window.location.href = "/home"
                     
                     console.log(history)
