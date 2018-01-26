@@ -20,18 +20,18 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
-    if (this.props.isAuthenticated) {
-      console.log('props is authenticated');
-      if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
-        console.log("Made it past")
-        return history.go('/home');
-      }
-      return
-    }
-    this.props.attemptAuthentication()
-      .then(_ => { })
-      .catch(_ => this.props.history.replace('/Auth'));
+    // console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
+    // if (this.props.isAuthenticated) {
+    //   console.log('props is authenticated');
+    //   if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
+    //     console.log("Made it past")
+    //     return history.go('/home');
+    //   }
+    //   return
+    // }
+    // this.props.attemptAuthentication()
+    //   .then(_ => { })
+    //   .catch(_ => this.props.history.replace('/Auth'));
   }
   
 
@@ -41,14 +41,13 @@ class App extends Component {
       <div className="App">
         <Router history={history}>
           <div>
-            {/* <Header isAuthenticated={this.props.isAuthenticated}/> */}
             <Switch>
-
-              <Route exact path="/" render={() => (
+              <Route path="/" component={Dashboard}/>
+              {/* <Route exact path="/" render={() => (
                 console.log(this.props.isAuthenticated, "second check"),
                 this.props.isAuthenticated ?
                   <Redirect to="/home" /> : <Redirect to="/Auth" />
-              )} />
+              )} /> */}
               <Route path="/Auth" component={Landing} />
               <PrivateRoute path="/home" isAuthenticated={this.props.isAuthenticated} component={Dashboard} />
             </Switch>
@@ -77,11 +76,11 @@ const mapDispatchToProps = (dispatch, props) => {
             if (data.data) {
               console.log("passed if");
               dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
-              return history.push("/home")
+              //return history.push("/home")
               resolve();
             }
             console.log(data, "error");
-            history.push('/')
+            //history.push('/')
             dispatch({ type: SIGNING_IN_ERROR })
             //reject();
           })

@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {createClip} from '../actions/index'
 //import styles from './audio.css';
 //import Main from './main'
-
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 class AudioPage extends Component {
 
@@ -44,11 +45,11 @@ class AudioPage extends Component {
         this.state.analyser.getByteTimeDomainData(dataArray);
         canvasCtx.fillStyle = 'rgb(200, 200, 200)';
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-        canvasCtx.lineWidth = 2;
+        canvasCtx.lineWidth = 1;
         canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
         canvasCtx.beginPath();
 
-        let sliceWidth = WIDTH * 1.0 / bufferLength;
+        let sliceWidth = WIDTH * 1 / bufferLength;
         let x = 0;
 
         for (let i = 0; i < bufferLength; i++) {
@@ -109,9 +110,10 @@ class AudioPage extends Component {
         this.state.mediaRecorder.start();
         console.log(this.state.mediaRecorder.state);
         console.log("recorder started");
-        this.refs.record.style.background = "red";
+        this.refs.record.style.background = "rgb(56, 212, 150)";
 
         this.refs.stop.disabled = false;
+        console.log(this.refs.stop.disabled)
         this.refs.record.disabled = true;
     }
 
@@ -119,8 +121,8 @@ class AudioPage extends Component {
         this.state.mediaRecorder.stop();
         console.log(this.state.mediaRecorder.state);
         console.log("recorder stopped");
-        this.refs.record.style.background = "";
-        this.refs.record.style.color = "";
+        this.refs.record.style = "";
+        this.refs.record.backgroundColor = "";
         // mediaRecorder.requestData();
 
         this.refs.stop.disabled = true;
@@ -150,15 +152,43 @@ class AudioPage extends Component {
     render() {
         return (
             <sction ref="main-controls" className="main-controls">
-                <canvas ref="canvas" className="visulizer" height="60px"></canvas>
-                <div class="buttons">
-                    <button ref="record" className="record" onClick={this.recordOnClick}>Record</button>
-                    <button ref="stop" className="stop" onClick={this.stopOnClick}>Stop</button>
-                </div>
-                <section ref="soundClips" className="sound-clips"></section>
+                <Card>
+                    <div className={styles.header}>
+                        <CardTitle title="Tell Your Story" subtitle="All the truth in the world can be found in Strories" />
+                    </div>
+                    <CardMedia>
+                        <canvas ref="canvas" className="visulizer" height="60px"></canvas>
+                    </CardMedia>
+                    <CardTitle title="Card title" subtitle="Card subtitle" />
+                    <CardActions>
+                        <div class="buttons">
+                            {/* <FlatButton label="Record" primary={true} hoverColor="lightgreen" backgroundColor="" ref="record" className="record" onClick={this.recordOnClick}/> */}
+                            <button ref="record" className={styles.record} onClick={this.recordOnClick}>Record</button>
+                            {/* <FlatButton label="Stop" primary={true} hoverColor="#FF5722" disabled={true} backgroundColor="" ref="stop" className="stop" onClick={this.stopOnClick} /> */}
+                            <button ref="stop" className={styles.stop} onClick={this.stopOnClick}>Stop</button> 
+                        </div>
+                    </CardActions>
+                    <section ref="soundClips" className="sound-clips"></section>
+                </Card>
             </sction>
 
         )
+    }
+}
+
+const styles= {
+    header: {
+        'bottom': '0px',
+        'right': '0px',
+        'left': '0px',
+        'padding-top': '8px',
+        'background-color': 'rgba(0, 0, 0, 0.54)'
+    },
+    record: {
+        background: "white"
+    },
+    stop:{
+
     }
 }
 

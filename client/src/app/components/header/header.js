@@ -9,7 +9,13 @@ import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import {Logout } from '../logout/logout';
 
-import styles from './header.css'
+//import styles from './header.css'
+
+const styles = {
+    menu: {
+        'background-color': "rgb(33, 150, 243)"
+    }
+}
 
 
 
@@ -34,10 +40,12 @@ export const Header = (props) => {
         return (
             <div className={styles.container}>
                 <AppBar
-                    title={"Welcome" + name }
-                    iconClassNameLeft={true}
+                    style={styles.menu}
+                    title={"audiomania"}
+                    //iconElementLeft={ "audiomania"}
                     iconElementRight={<Menu />}
                 />
+                
             </div>
         )
 }

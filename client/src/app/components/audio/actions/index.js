@@ -1,9 +1,10 @@
-import { guid } from '../snippets/helper'
+import {guid} from '../snippets/helper'
 export const CREATE_CLIP = 'CREATE_CLIP';
 export const DELETE_CLIP = 'DELETE_CLIP';
 export const UPDATE_CLIP_NAME = 'UPDATE_CLIP_NAME';
 
 export const createClip = (blob, clipName) => {
+    console.log(guid())
     return {
         type: CREATE_CLIP,
         id: guid(),

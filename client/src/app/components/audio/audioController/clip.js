@@ -10,6 +10,7 @@ class Clip extends Component {
     }
 
     deleteButtonOnClick() {
+        console.log(this.props)
         this.props.deleteClip(this.props.id);
     }
 
