@@ -81,6 +81,7 @@ class AudioPage extends Component {
     }
 
     componentDidMount() {
+        this.refs.stop.disabled = true;
         this.setState({
             canvas: this.refs.canvas
         })
@@ -157,7 +158,7 @@ class AudioPage extends Component {
                         <CardTitle title="Tell Your Story" subtitle="All the truth in the world can be found in Strories" />
                     </div>
                     <CardMedia>
-                        <canvas ref="canvas" className="visulizer" height="60px"></canvas>
+                        <canvas ref="canvas" className="visulizer" height="40px"></canvas>
                     </CardMedia>
                     <CardTitle title="Card title" subtitle="Card subtitle" />
                     <CardActions>

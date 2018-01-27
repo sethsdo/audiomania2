@@ -10,6 +10,12 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
+
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import background from "../../../static/img/temp-background.jpeg"
 import profileImg from "../../../static/img/Seth-1.jpg"
@@ -114,32 +120,46 @@ const RightSideBar = (props) => {
 const LeftSideBar = (props) => {
     return (
         <Card>
-            <CardHeader
-                title="URL Avatar"
-                subtitle="Subtitle"
-                avatar="images/ok-128.jpg"
-                actAsExpander={true}
-                showExpandableButton={true}
-            />
-            <CardText>
-            </CardText>
-            <CardMedia
-
-                overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-            >
-                <img src="images/nature-600-337.jpg" alt="" />
-            </CardMedia>
-            <CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
-            <CardText expandable={true}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-            <CardActions>
-                <FlatButton label="Expand" onClick={this.handleExpand} />
-                <FlatButton label="Reduce" onClick={this.handleReduce} />
-            </CardActions>
+                <List>
+                    <Subheader>Recent chats</Subheader>
+                    <ListItem
+                        primaryText="Brendan Lim"
+                        leftAvatar={<Avatar src="images/ok-128.jpg" />}
+                        rightIcon={<CommunicationChatBubble />}
+                    />
+                    <ListItem
+                        primaryText="Eric Hoffman"
+                        leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+                        rightIcon={<CommunicationChatBubble />}
+                    />
+                    <ListItem
+                        primaryText="Grace Ng"
+                        leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+                        rightIcon={<CommunicationChatBubble />}
+                    />
+                    <ListItem
+                        primaryText="Kerem Suer"
+                        leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+                        rightIcon={<CommunicationChatBubble />}
+                    />
+                    <ListItem
+                        primaryText="Raquel Parrado"
+                        leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+                        rightIcon={<CommunicationChatBubble />}
+                    />
+                </List>
+                <Divider />
+                <List>
+                    <Subheader>Previous chats</Subheader>
+                    <ListItem
+                        primaryText="Chelsea Otakan"
+                        leftAvatar={<Avatar src="images/chexee-128.jpg" />}
+                    />
+                    <ListItem
+                        primaryText="James Anderson"
+                        leftAvatar={<Avatar src="images/jsa-128.jpg" />}
+                    />
+                </List>
         </Card>
 
     )

@@ -20,18 +20,18 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
-    // if (this.props.isAuthenticated) {
-    //   console.log('props is authenticated');
-    //   if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
-    //     console.log("Made it past")
-    //     return history.go('/home');
-    //   }
-    //   return
-    // }
-    // this.props.attemptAuthentication()
-    //   .then(_ => { })
-    //   .catch(_ => this.props.history.replace('/Auth'));
+    console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
+    if (this.props.isAuthenticated) {
+      console.log('props is authenticated');
+      if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
+        console.log("Made it past")
+        return history.go('/home');
+      }
+      return
+    }
+    this.props.attemptAuthentication()
+      .then(_ => { })
+      .catch(_ => this.props.history.replace('/Auth'));
   }
   
 
@@ -42,12 +42,12 @@ class App extends Component {
         <Router history={history}>
           <div>
             <Switch>
-              <Route path="/" component={Dashboard}/>
-              {/* <Route exact path="/" render={() => (
+              {/* <Route path="/" component={Dashboard}/> */}
+              <Route exact path="/" render={() => (
                 console.log(this.props.isAuthenticated, "second check"),
                 this.props.isAuthenticated ?
                   <Redirect to="/home" /> : <Redirect to="/Auth" />
-              )} /> */}
+              )} />
               <Route path="/Auth" component={Landing} />
               <PrivateRoute path="/home" isAuthenticated={this.props.isAuthenticated} component={Dashboard} />
             </Switch>
@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch, props) => {
               resolve();
             }
             console.log(data, "error");
-            //history.push('/')
+            history.push('/Auth')
             dispatch({ type: SIGNING_IN_ERROR })
             //reject();
           })

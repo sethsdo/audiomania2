@@ -1,8 +1,11 @@
+
 'use strict';
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
+const Object = Schema.ObjectId;
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = Schema({
     firstname: {
         type: String,
         required: [true, "First name required..."],
@@ -39,6 +42,7 @@ const UserSchema = new mongoose.Schema({
 		//     message: "Password failed validation, you must have at least 1 number, uppercase and special character..."
 		// }
     },
+    audio_id: [{type: Object}],
 })
 
 UserSchema.pre('save', function (next) {
