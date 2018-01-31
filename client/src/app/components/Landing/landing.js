@@ -59,7 +59,7 @@ class Landing extends Component {
             <Card className="lg-outer-container">
                 <div className="lg-container">
                     {logged}  
-                    <br/>
+                    <br />
                     {button}
                 </div>
                 <br />

@@ -1,7 +1,9 @@
 
 
 let EmailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-let PasswordReg = new RegExp("^(?=.{8,})|(?=.*[!@#\$%\^&\*])|(?=.*[A-Z])");
+let PasswordReg = new RegExp("^(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+let Uppercase = new RegExp("^(?=.*[A-Z])")
+let Length = new RegExp("^(((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})")
 
 export default {
     firstname: {
@@ -54,6 +56,8 @@ export default {
             if (!val) formCheck("Password Required!", this)
             //if (val.length < 6) formCheck("Password must be at least 8 Char.")
             if (!val.match(PasswordReg)) formCheck("Invalid Password! 8 Char, 1 Uppercase, 1 Special Char", this)
+            else if (!val.match(Uppercase)) formCheck("Invalid Password! 8 Char, 1 Uppercase, 1 Special Char", this)
+            else if (!val.match(Length)) formCheck("Invalid Password! 8 Char, 1 Uppercase, 1 Special Char", this)
             else {
                 this.err = "";
                 this.value = val;

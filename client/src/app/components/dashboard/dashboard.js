@@ -50,7 +50,6 @@ const styles = {
     backgroundImg: {
         'position': 'absalute'
     }
-
 }
 
 
@@ -63,19 +62,22 @@ class Dashboard extends Component {
     }
 
     componentWillMount() {
-        attemptAuth()
-            .then(data => {
-                console.log(data.data)
-                if (data.data) {
-                    console.log("passed if");
-                    this.setState({user: data.data})    
-                }
-                console.log(data, "error");
-                //history.push('/')
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        console.log(history)
+        this.state.user = history.location.state.user
+        console.log(this.state.user)
+        // attemptAuth()
+        //     .then(data => {
+        //         console.log(data.data)
+        //         if (data.data) {
+        //             console.log("passed if");
+        //             this.setState({user: data.data})    
+        //         }
+        //         console.log(data, "error");
+        //         //history.push('/')
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     }
     render() {
         console.log(this.state.user)
@@ -85,9 +87,9 @@ class Dashboard extends Component {
                 <Header className="App-header" data={this.state.user}/>
                 <div className="containe" style={styles.outerContainer}>
                     <div className="row">
-                        <div className="col-xl-3 col-lg-4 col-xs-12"><RightSideBar/></div>
+                        <div className="col-xl-3 col-lg-4 col-xs-12"><LeftSideBar user={this.state.user}/></div>
                         <div className="col-xl-6 col-lg-8 col-xs-12"><Audio/></div>
-                        <div className="col-xl-3 col-lg-12 col-sm-12"><LeftSideBar/></div>
+                        <div className="col-xl-3 col-lg-12 col-sm-12"><RightSideBar/></div>
                     </div>
                 </div>
                 <Footer/>
@@ -96,11 +98,12 @@ class Dashboard extends Component {
     }
 }
 
-const RightSideBar = (props) => {
+const LeftSideBar = (props) => {
+    console.log(props)
     return (
         <Card>
             <CardMedia overlay={
-                <CardTitle title="Seth Olmstead" subtitle="Full Stack Developer" />
+                <CardTitle title={`${props.user.firstname + ' ' + props.user.lastname }`}subtitle="Full Stack Developer" />
             }>
                 <img src={background} alt="" style={styles.backgroundImg} />
                 {/* <Avatar src={profileImg} style={styles.avatar} /> */}
@@ -117,7 +120,7 @@ const RightSideBar = (props) => {
         </Card>
     )
 }
-const LeftSideBar = (props) => {
+const RightSideBar = (props) => {
     return (
         <Card>
                 <List>

@@ -4,15 +4,16 @@ const mongoose = require('mongoose')
 module.exports = {
     create(req, res) {
         let body = req.body;
-        let audioFile = new Audio(body)
+        console.log(body, "checking the data type")
+        // let audioFile = new Audio(body)
 
-        audioFile.save()
-            .then(() => {
-                console.loog("Audio File Created")
-            })
-            .catch(err => {
-                console.log("Error With Creation: ", err)
-            })
+        // audioFile.save()
+        //     .then(() => {
+        //         console.loog("Audio File Created")
+        //     })
+        //     .catch(err => {
+        //         console.log("Error With Creation: ", err)
+        //     })
     },
     read: (req, res) => {
         Audio.find( (err, audio)

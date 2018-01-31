@@ -27,7 +27,7 @@ class Register extends Component {
     handleSubmit(e) {
         e.preventDefault();
         //console.log(this.state.newUser);
-        this.props.attemptRegistry(this.state.newUser)
+        attemptRegistry(this.state.newUser)
 
     }
 
@@ -114,36 +114,36 @@ class Register extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        attemptRegistry(body) {
-            register(body)
-                .then(data => {
-                    console.log("Register Event occurred and succeeded!", data);
-                    dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
-                    props.history.push('/dashboard')
-                })
-                .catch(err => {
-                    console.error("Registration event occurred and failed :(.", err);
-                    dispatch({ type: SIGNING_IN_ERROR, payload: err })
-                    console.log(props);
-                })
-        }
-    }
-}
-
-function attemptRegistry(body) {
+const attemptRegistry = (body) => {
     console.log(body)
     register(body)
         .then(data => {
             console.log("registered", data)
-            attemptAuth.authenticate();
-            console.log(attemptAuth.isAuenticated)
-            window.location.href = '/Dashboard';
+            attemptAuth();
+            // console.log(attemptAuth.isAuenticated)
+            // window.location.href = '/Dashboard';
         })
         .catch(err => {
             console.log("error", err)
         })
 }
+
+// const mapDispatchToProps = (dispatch, props) => {
+//     return {
+//         attemptRegistry(body) {
+//             register(body)
+//                 .then(data => {
+//                     console.log("Register Event occurred and succeeded!", data);
+//                     dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
+//                     props.history.push('/dashboard')
+//                 })
+//                 .catch(err => {
+//                     console.error("Registration event occurred and failed :(.", err);
+//                     dispatch({ type: SIGNING_IN_ERROR, payload: err })
+//                     console.log(props);
+//                 })
+//         }
+//     }
+// }
 
 export default Register;

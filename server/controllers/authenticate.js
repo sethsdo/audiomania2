@@ -12,7 +12,7 @@ module.exports = {
         } else {
             User.findById({_id: req.session.User_Id})
                 .then(user => { 
-                    console.log(user, "here")
+                    //console.log(user, "here")
                     return res.json(user)
                 })
                 .catch(err => {

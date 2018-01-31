@@ -20,36 +20,43 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
-    if (this.props.isAuthenticated) {
-      console.log('props is authenticated');
-      if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
-        console.log("Made it past")
-        return history.go('/home');
-      }
-      return
-    }
-    this.props.attemptAuthentication()
-      .then(_ => { })
-      .catch(_ => this.props.history.replace('/Auth'));
+    //attemptAuth()
+    //return history.location.state ? <Redirect to="/home" /> : <Redirect to="/Auth" />
+    console.log(history)
+    // console.log(this.props.isAuthenticated, history.location.pathname , 'from component will mount');
+    // if (this.props.isAuthenticated) {
+    //   console.log('props is authenticated');
+    //   if (history.location.pathname === '/' || history.location.pathname === '/Auth') {
+    //     console.log("Made it past")
+    //     return history.go('/home');
+    //   }
+    //   return
+    // }
+    // this.props.attemptAuthentication()
+    //   .then(_ => { })
+    //   .catch(_ => this.props.history.replace('/Auth'));
   }
   
 
   render() {
-    console.log(this.props.isAuthenticated, "main check")
+    let isAuthenticated = false
+
+    if (history.location.state !== false && history.location.state !== undefined) {
+      isAuthenticated = true
+    }
+    console.log(isAuthenticated, history.location.state, "main check")
     return (
       <div className="App">
-        <Router history={history}>
+        <Router>
           <div>
             <Switch>
               {/* <Route path="/" component={Dashboard}/> */}
               <Route exact path="/" render={() => (
-                console.log(this.props.isAuthenticated, "second check"),
-                this.props.isAuthenticated ?
+                isAuthenticated ?
                   <Redirect to="/home" /> : <Redirect to="/Auth" />
               )} />
               <Route path="/Auth" component={Landing} />
-              <PrivateRoute path="/home" isAuthenticated={this.props.isAuthenticated} component={Dashboard} />
+              <PrivateRoute path="/home" isAuthenticated={isAuthenticated} component={Dashboard} />
             </Switch>
           </div>
         </Router>
@@ -66,31 +73,31 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    attemptAuthentication() {
-      return new Promise((resolve, reject) => {
-        attemptAuth()
-          .then(data => {
-            console.log(data.data)
-            if (data.data) {
-              console.log("passed if");
-              dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
-              //return history.push("/home")
-              resolve();
-            }
-            console.log(data, "error");
-            history.push('/Auth')
-            dispatch({ type: SIGNING_IN_ERROR })
-            //reject();
-          })
-          .catch(err => {
-            console.log(`Not authenticated ${err}`);
-            dispatch({ type: SIGNING_IN_ERROR })
-          })
-      })
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapDispatchToProps = (dispatch, props) => {
+//   return {
+//     attemptAuthentication() {
+//       return new Promise((resolve, reject) => {
+//         attemptAuth()
+//           .then(data => {
+//             console.log(data.data)
+//             if (data.data) {
+//               console.log("passed if");
+//               dispatch({ type: SIGNING_IN_SUCCESS, payload: data })
+//               //return history.push("/home")
+//               resolve();
+//             }
+//             console.log(data, "error");
+//             history.push('/Auth')
+//             dispatch({ type: SIGNING_IN_ERROR })
+//             //reject();
+//           })
+//           .catch(err => {
+//             console.log(`Not authenticated ${err}`);
+//             dispatch({ type: SIGNING_IN_ERROR })
+//           })
+//       })
+//     }
+//   }
+// }
+//connect(mapStateToProps, mapDispatchToProps)
+export default connect(null)(App);

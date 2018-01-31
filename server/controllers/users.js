@@ -20,6 +20,7 @@ module.exports = {
     },
 
     login: (req, res) => {
+        console.log(req.body)
         let email = req.body.email;
         User.findOne({email: email}, (err, user) => {
             if(user){

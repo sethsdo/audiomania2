@@ -17,7 +17,7 @@ import {
 
 import { user } from '../../utils/models'
 
-import { login } from '../../state/actions/authActions';
+import { login, attemptAuth } from '../../state/actions/authActions';
 import { Header, Footer } from "../../components"
 import { Authenticated } from '../authenticate/authenticate';
 
@@ -43,7 +43,7 @@ class Login extends Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log("submitted");
-        this.props.login(this.state.newUser)
+        attemptLogin(this.state.newUser)
     }
 
     handleChange(key, previousState, newValue) {
@@ -90,24 +90,42 @@ class Login extends Component {
     }
 }
 
-const mapDispatch = (dispatch, props) => {
-    return {
-        login(body) {
-            login(body)
-                .then(data => {
-                    console.log(data, "here")
-                    dispatch({ type: SIGNING_IN_SUCCESS, payload: data})
-                    //history.push("/", {state: data})
-                    return window.location.href = "/home"
-                    
-                    console.log(history)
-                })
-                .catch(err => {
-                    console.log(err)
-                    dispatch({ type: SIGNING_IN_ERROR, payload: err })
-                })
-        }
-    }
+const attemptLogin = (data) => {
+    console.log("made it to attempt", data)
+     
+        login(data)
+            .then(data => {
+                console.log(data, "here")
+                attemptAuth()
+                //history.("/home")
+                // return window.location.href = "/home"
+                //console.log(history)
+            })
+            .catch(err => {
+                console.log(err)
+                history.push("/Auth", { state: data })
+            })
 }
 
-export default connect(null, mapDispatch)(Login);
+// const mapDispatch = (dispatch, props) => {
+//     return {
+//         login(body) {
+//             login(body)
+//                 .then(data => {
+//                     console.log(data, "here")
+//                     dispatch({ type: SIGNING_IN_SUCCESS, payload: data})
+//                     //history.push("/", {state: data})
+//                     return window.location.href = "/home"
+                    
+//                     console.log(history)
+//                 })
+//                 .catch(err => {
+//                     console.log(err)
+//                     dispatch({ type: SIGNING_IN_ERROR, payload: err })
+//                 })
+//         }
+//     }
+// }
+
+// export default connect(null, mapDispatch)(Login);
+export default Login;

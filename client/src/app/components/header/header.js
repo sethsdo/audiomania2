@@ -7,7 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import AppBar from 'material-ui/AppBar';
 
 import { connect } from 'react-redux';
-import {Logout } from '../logout/logout';
+import { Logout } from '../logout/logout';
 
 //import styles from './header.css'
 
@@ -35,8 +35,8 @@ const Menu = (props) => (
 );
 
 export const Header = (props) => {
-    console.log(props.data.firstname)
-    let name = `${props.data.firstname + ' ' + props.data.lastname}`
+    // console.log(props.user.firstname)
+    // let name = `${props.user.firstname + ' ' + props.user.lastname}`
         return (
             <div className={styles.container}>
                 <AppBar

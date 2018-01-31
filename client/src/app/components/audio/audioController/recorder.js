@@ -6,6 +6,8 @@ import {createClip} from '../actions/index'
 //import Main from './main'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import { createAudio, uploadDocumentRequest} from '../../../state/actions/audioActions';
+//import {AudioRecorder} from 'react-audio-recorder';
 
 class AudioPage extends Component {
 
@@ -81,6 +83,7 @@ class AudioPage extends Component {
     }
 
     componentDidMount() {
+        
         this.refs.stop.disabled = true;
         this.setState({
             canvas: this.refs.canvas
@@ -124,7 +127,7 @@ class AudioPage extends Component {
         console.log("recorder stopped");
         this.refs.record.style = "";
         this.refs.record.backgroundColor = "";
-        // mediaRecorder.requestData();
+        //console.log(this.state.mediaRecorder.ondataavailable);
 
         this.refs.stop.disabled = true;
         this.refs.record.disabled = false;
@@ -133,8 +136,12 @@ class AudioPage extends Component {
     mediaRecorderOnStop() {
         console.log("data available after MediaRecorder.stop() called.");
         const clipName = prompt('Enter a name for your sound clip?', 'My unnamed clip')
-
+        const formData = new FormData()
+        formData.append("data", "data")
+        console.log(formData)
+        uploadDocumentRequest(formData)
         const blob = new Blob(this.state.chunks, { 'type': 'audio/ogg; codecs=opus' });
+        console.log(blob)
         this.props.createClip(blob, clipName)
 
         this.setState({
@@ -154,6 +161,7 @@ class AudioPage extends Component {
         return (
             <sction ref="main-controls" className="main-controls">
                 <Card>
+                    {/* //<AudioRecorder /> */}
                     <div className={styles.header}>
                         <CardTitle title="Tell Your Story" subtitle="All the truth in the world can be found in Strories" />
                     </div>

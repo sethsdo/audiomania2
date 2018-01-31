@@ -4,7 +4,7 @@ export const DELETE_CLIP = 'DELETE_CLIP';
 export const UPDATE_CLIP_NAME = 'UPDATE_CLIP_NAME';
 
 export const createClip = (blob, clipName) => {
-    console.log(guid())
+    console.log(blob)
     return {
         type: CREATE_CLIP,
         id: guid(),
